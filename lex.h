@@ -1,9 +1,4 @@
-/*
- * lex.h
- *
- * CS280
- * Spring 2023
-*/
+// Lexical Analyzer Header File
 
 #ifndef LEX_H_
 #define LEX_H_
@@ -70,4 +65,4 @@ extern LexItem id_or_kw(const string& lexeme, int linenum);
 extern LexItem getNextToken(istream& in, int& linenum);
  
 
-#endif /* LEX_H_ */
+#endif 

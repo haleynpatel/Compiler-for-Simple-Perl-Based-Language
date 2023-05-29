@@ -1,8 +1,4 @@
-/* 
- * parserInt.h
- * Programming Assignment 3
- * Spring 2023
-*/
+// Parser Interpreter Header File
 
 #ifndef PARSEINT_H_
 #define PARSEINT_H_
@@ -32,4 +28,4 @@ extern bool UnaryExpr(istream& in, int& line, Value & retVal);
 extern bool PrimaryExpr(istream& in, int& line, int sign, Value & retVal);
 extern int ErrCount();
 
-#endif /* PARSEINT_H_ */
+#endif 

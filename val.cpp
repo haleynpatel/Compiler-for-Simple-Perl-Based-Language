@@ -1,4 +1,8 @@
 #include "val.h"
+
+// Defines the methods of the overloaded operators in the language
+
+
 // update in future: change all ints to real before doing ops to save time
 //if one or both operands are not numeric, an attempt is made to conver the non-numeric operand to a numeric one
 Value Value::operator+(const Value& op) const{
@@ -57,6 +61,7 @@ Value Value::operator+(const Value& op) const{
         return Value();
     }
 }
+
 Value Value::operator-(const Value& op)const{
     double conv;
     double oper;
@@ -408,6 +413,7 @@ Value Value::operator<(const Value& op) const{
     }  
 
 }
+
 Value Value::operator^(const Value& op) const{
     if(IsReal() && op.IsReal()){
         return Value(pow(Rtemp, op.Rtemp));
@@ -422,6 +428,7 @@ Value Value::operator^(const Value& op) const{
         return Value();
     }
 }
+
 //performed on two string operands. Attempt to convert string otherwise semantic error
 Value Value::Catenate(const Value& oper) const {
     string conv;
@@ -473,6 +480,7 @@ Value Value::Catenate(const Value& oper) const {
         return Value();
     }
 }
+
 Value Value::Repeat(const Value& op) const {
     //First operands is a string and the second operand is an integer
     double oper;
@@ -543,8 +551,8 @@ Value Value::Repeat(const Value& op) const {
         return Value();
     }
 }
-//operate on string operands, produce true or false
 
+//operate on string operands, produce true or false
 Value Value::SEqual(const Value& oper) const {
     ostringstream s;
     ostringstream t;
@@ -592,6 +600,7 @@ Value Value::SEqual(const Value& oper) const {
         return Value();
     }
 }
+
 Value Value::SLthan(const Value& oper) const {
     ostringstream s;
     ostringstream t;

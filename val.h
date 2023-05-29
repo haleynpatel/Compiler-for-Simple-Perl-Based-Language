@@ -1,6 +1,8 @@
 #ifndef VALUE_H
 #define VALUE_H
 
+// Header file for val.cpp
+
 #include <iostream>
 #include <string>
 #include <queue>

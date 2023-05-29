@@ -1,8 +1,7 @@
-/* Implementation of Recursive-Descent Parser
- * parserInt.cpp
- * Programming Assignment 3
- * Spring 2023
-*/
+// Implementation of Recursive-Descent Parser
+// Parser Interpreter Code
+
+
 #include "parserInt.h"
 #include "val.h"
 #include <regex>

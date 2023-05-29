@@ -1,8 +1,8 @@
 #include "lex.h"
 #include <map>
 #include <cctype>
-using namespace std;
 
+using namespace std;
 LexItem getNextToken(istream& in, int& linenumber){
     enum tokenState{START, INID, INSTRING, ININT, INREAL, INCOMMENT};
     tokenState lexstate = START; //set lexeme state to start
