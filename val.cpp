@@ -1,6 +1,5 @@
 #include "val.h"
 // update in future: change all ints to real before doing ops to save time
-
 //if one or both operands are not numeric, an attempt is made to conver the non-numeric operand to a numeric one
 Value Value::operator+(const Value& op) const{
     double conv;
@@ -167,6 +166,7 @@ Value Value::operator*(const Value& op) const{
         return Value();
     }
 }
+
 Value Value::operator/(const Value& op) const{
     double conv;
     double oper;
@@ -244,6 +244,7 @@ Value Value::operator/(const Value& op) const{
         return Value();
     }
 }
+
 //Operate on numeric only, return true or false
 Value Value::operator==(const Value& op) const{
     double conv;
@@ -298,6 +299,7 @@ Value Value::operator==(const Value& op) const{
         return Value();
     }    
 }
+
 Value Value::operator>(const Value& op) const{
     double conv;
     double oper;
@@ -351,6 +353,7 @@ Value Value::operator>(const Value& op) const{
         return Value();
     }    
 }
+
 Value Value::operator<(const Value& op) const{
     double conv;
     double oper;
@@ -402,7 +405,8 @@ Value Value::operator<(const Value& op) const{
     }
     else {
         return Value();
-    }    
+    }  
+
 }
 Value Value::operator^(const Value& op) const{
     if(IsReal() && op.IsReal()){
@@ -419,7 +423,6 @@ Value Value::operator^(const Value& op) const{
     }
 }
 //performed on two string operands. Attempt to convert string otherwise semantic error
-//performed on two string operands. Attempt to convert string otherwise semantic error
 Value Value::Catenate(const Value& oper) const {
     string conv;
     string op;
@@ -433,7 +436,6 @@ Value Value::Catenate(const Value& oper) const {
         s << oper.GetReal();
         try{
             op = s.str();
-            //cout<< "op is: " << op << endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -444,7 +446,6 @@ Value Value::Catenate(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -455,7 +456,6 @@ Value Value::Catenate(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -467,8 +467,6 @@ Value Value::Catenate(const Value& oper) const {
         catch(invalid_argument & arg){
             return Value();
         }
-        //cout << "conv is: " << conv<< endl;
-        //cout << "op is: " << op << endl;
         return Value(conv+op);  
     }
     else{
@@ -481,7 +479,7 @@ Value Value::Repeat(const Value& op) const {
     if( IsString() && op.IsString()){
     //second operand must be converted to a numeric
         try {
-            oper = stod(op.GetString());//may throw invalid_argument()
+            oper = stod(op.GetString());
         }
         catch( invalid_argument & arg){
             cout << "Invalid conversion from string to double." << endl;
@@ -546,7 +544,7 @@ Value Value::Repeat(const Value& op) const {
     }
 }
 //operate on string operands, produce true or false
-//operate on string operands, produce true or false
+
 Value Value::SEqual(const Value& oper) const {
     ostringstream s;
     ostringstream t;
@@ -559,7 +557,6 @@ Value Value::SEqual(const Value& oper) const {
         s << oper.GetReal();
         try{
             op = s.str();
-            //cout<< "op is: " << op << endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -569,9 +566,7 @@ Value Value::SEqual(const Value& oper) const {
     else if(IsReal() && oper.IsString()){
         s << GetReal();
         try{
-            conv = s.str();
-            //cout<<"string is: " << conv<<endl;
-        }
+            conv = s.str();        }
         catch(invalid_argument & arg){
             return Value();
         }
@@ -580,9 +575,7 @@ Value Value::SEqual(const Value& oper) const {
     else if(IsReal() && oper.IsReal()){
         s << GetReal();
         try{
-            conv = s.str();
-            //cout<<"string is: " << conv<<endl;
-        }
+            conv = s.str();        }
         catch(invalid_argument & arg){
             return Value();
         }
@@ -593,8 +586,6 @@ Value Value::SEqual(const Value& oper) const {
         catch(invalid_argument & arg){
             return Value();
         }
-        //cout << "conv is: " << conv<< endl;
-        //cout << "op is: " << op << endl;
         return Value(conv<op);  
     }
     else{
@@ -613,7 +604,6 @@ Value Value::SLthan(const Value& oper) const {
         s << oper.GetReal();
         try{
             op = s.str();
-            //cout<< "op is: " << op << endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -624,7 +614,6 @@ Value Value::SLthan(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -635,7 +624,6 @@ Value Value::SLthan(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -647,8 +635,6 @@ Value Value::SLthan(const Value& oper) const {
         catch(invalid_argument & arg){
             return Value();
         }
-        //cout << "conv is: " << conv<< endl;
-        //cout << "op is: " << op << endl;
         return Value(conv<op);  
     }
     else{
@@ -667,7 +653,6 @@ Value Value::SGthan(const Value& oper) const {
         s << oper.GetReal();
         try{
             op = s.str();
-            //cout<< "op is: " << op << endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -678,7 +663,6 @@ Value Value::SGthan(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -690,7 +674,6 @@ Value Value::SGthan(const Value& oper) const {
         s << GetReal();
         try{
             conv = s.str();
-            //cout<<"string is: " << conv<<endl;
         }
         catch(invalid_argument & arg){
             return Value();
@@ -702,8 +685,6 @@ Value Value::SGthan(const Value& oper) const {
         catch(invalid_argument & arg){
             return Value();
         }
-        //cout << "conv is: " << conv<< endl;
-        //cout << "op is: " << op << endl;
         return Value(conv>op);  
     }
     else{
