@@ -1,10 +1,8 @@
 #include "val.h"
 
 // Defines the methods of the overloaded operators in the language
-
-
-// update in future: change all ints to real before doing ops to save time
 //if one or both operands are not numeric, an attempt is made to conver the non-numeric operand to a numeric one
+
 Value Value::operator+(const Value& op) const{
     double conv;
     double oper;
@@ -650,6 +648,7 @@ Value Value::SLthan(const Value& oper) const {
         return Value();
     }
 }
+
 Value Value::SGthan(const Value& oper) const {
     ostringstream s;
     ostringstream t;
