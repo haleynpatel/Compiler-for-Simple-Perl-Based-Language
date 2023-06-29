@@ -9,7 +9,7 @@
 using namespace std;
 
 
-//Definition of all the possible token types
+//Definition of all possible token types
 enum Token {
 	// keywords
 	WRITELN, IF, ELSE, 
