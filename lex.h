@@ -20,10 +20,11 @@ enum Token {
 	// an integer, real, and string constant
 	ICONST, RCONST, SCONST, 
 
-	// the numeric operators, assignment, numeric and string comparison operators
+	// numeric operators, assignment, numeric and string comparison operators
 	PLUS, MINUS, MULT, DIV, EXPONENT, ASSOP, NEQ, 
 	NGTHAN, NLTHAN, CAT, SREPEAT, SEQ, SLTHAN, SGTHAN, 
-	//Delimiters
+
+	// delimiters
 	COMMA, SEMICOL, LPAREN, RPAREN, LBRACES, RBRACES, 
 	// any error returns this token
 	ERR,
@@ -34,6 +35,7 @@ enum Token {
 
 
 //Class definition of LexItem
+
 class LexItem {
 	Token	token;
 	string	lexeme;

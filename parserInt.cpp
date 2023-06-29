@@ -1,7 +1,6 @@
 // Implementation of Recursive-Descent Parser
 // Parser Interpreter Code
 
-
 #include "parserInt.h"
 #include "val.h"
 #include <regex>
@@ -58,7 +57,7 @@ bool Prog(istream& in, int& line){
 	}
 	else 
 		return true;
-}//End of Prog
+}
 
 //StmtList ::= Stmt; { Stmt; }
 bool StmtList(istream& in, int& line){
@@ -109,17 +108,14 @@ bool Stmt(istream& in, int& line){
 		break;
 	case WRITELN:
 		status = WritelnStmt(in, line);
-		if(!status)
-		{
+		if(!status){
 			ParseError(line, "Incorrect Writeln Statement.");
 			return false;
 		}
 		break;
 	case IF:  
 		status = IfStmt(in, line);
-		
-		if(!status)
-		{
+		if(!status){
 			ParseError(line, "Incorrect If-Statement.");
 			return false;
 		}
@@ -138,7 +134,7 @@ bool Stmt(istream& in, int& line){
 		return true;
 	}
 	return status;
-}//End of Stmt function
+}
 
 
 //WritelnStmt:= WRITELN (ExpreList) 
@@ -162,9 +158,7 @@ bool WritelnStmt(istream& in, int& line) {
 		delete ValQue;
 		return false;
 	}
-	//Evaluate: writeln by printing out the list of expressions' values
-	while (!(*ValQue).empty())
-	{
+	while (!(*ValQue).empty()) {
 		Value nextVal = (*ValQue).front();
 		cout << nextVal;
 		ValQue->pop();
@@ -238,7 +232,6 @@ bool IfStmt(istream& in, int& line) {
 			Parser::PushBackToken(t);}
 	}
 	else{
-		//while loop to skip if
 		while(t!=RBRACES){
 			t = Parser::GetNextToken(in, line);
 		}
@@ -264,44 +257,6 @@ bool IfStmt(istream& in, int& line) {
 			Parser::PushBackToken(t);
 		}
 	}		
-	/*status = StmtList(in, line);
-	if(!status)
-	{
-		ParseError(line, "Missing Statement for If-Stmt Clause");
-		return false;
-	}
-	t = Parser::GetNextToken(in, line);
-	if( t != RBRACES)
-	{
-		ParseError(line, "If Statement Syntax Error: Missing right brace.");
-		return false;
-	}
-	
-	t = Parser::GetNextToken(in, line);
-	
-	if( t == ELSE ){
-		t = Parser::GetNextToken(in, line);
-		if(t != LBRACES){
-			ParseError(line, "If Statement Syntax Error: Missing left brace");
-			return false;
-		}
-		status = StmtList(in, line);
-		if(!status){
-			ParseError(line, "Missing Statement for Else-Clause");
-			return false;
-		}
-		t = Parser::GetNextToken(in, line);
-		if( t != RBRACES){
-			Parser::PushBackToken(t);
-			ParseError(line, "If Statement Syntax Error: Missing right brace.");
-			return false;
-		}
-		//Parser::PushBackToken(t);
-	}
-	else{
-		Parser::PushBackToken(t);
-		return true;
-	}*/
 	return true;
 }//End of IfStmt function
 
@@ -312,21 +267,15 @@ bool AssignStmt(istream& in, int& line) {
 	Value val1;
 	varstatus = Var( in, line, t1);
 	string idstring = t1.GetLexeme();
-	//cout << "id string" << t1 << endl;
 	if (varstatus){
-
 		t = Parser::GetNextToken(in, line);
-
-		if (t == ASSOP){
+		if (t == ASSOP) {
 			status = Expr(in, line, val1);
-			//cout << val1.GetType()<<endl;
 			if(!status) {
 				ParseError(line, "Missing Expression in Assignment Statement");
 				return status;
 			}
-			//cout << "in assignment: " << val1 << endl;
-			//cout << "in assignment: " << idstring << endl;
-			if(t1.GetToken() == NIDENT){
+			if(t1.GetToken() == NIDENT) {
 				if((val1.GetType() == VREAL) || (val1.GetType() == VINT)){
 					
 					TempsResults[idstring] = val1;
@@ -336,7 +285,7 @@ bool AssignStmt(istream& in, int& line) {
                     return false;
 				}
 			}
-			else if(t1.GetToken() == SIDENT){
+			else if(t1.GetToken() == SIDENT) {
 				if(val1.GetType() == VBOOL){
 					ParseError(line, "Bool to SIDENT");
                     return false;
@@ -348,7 +297,7 @@ bool AssignStmt(istream& in, int& line) {
                 return false;
 			}
 		}
-		else if(t.GetToken() == ERR){
+		else if(t.GetToken() == ERR) {
 			ParseError(line, "Unrecognized Input Pattern");
 			cout << "(" << t.GetLexeme() << ")" << endl;
 			return false;
@@ -366,21 +315,18 @@ bool AssignStmt(istream& in, int& line) {
 }//End of AssignStmt
 
 //Var ::= NIDENT | SIDENT
-bool Var(istream& in, int& line, LexItem & idtok)
-{
+bool Var(istream& in, int& line, LexItem & idtok){
 	string identstr;
-	
 	idtok = Parser::GetNextToken(in, line);
-	//cout << "In var" << idtok << endl;
+
 	if (idtok == NIDENT || idtok == SIDENT){
 		identstr = idtok.GetLexeme();
-		
+
 		if (!(defVar.find(identstr)->second))
 		{
 			defVar[identstr] = true;
 			SymTable[identstr] = idtok.GetToken();
 		}
-			
 		return true;
 	}
 	else if(idtok.GetToken() == ERR){
@@ -388,9 +334,8 @@ bool Var(istream& in, int& line, LexItem & idtok)
 		
 		return false;
 	}
-	
 	return false;
-}//End of Var
+}
 
 //ExprList:= Expr {,Expr}
 bool ExprList(istream& in, int& line) {

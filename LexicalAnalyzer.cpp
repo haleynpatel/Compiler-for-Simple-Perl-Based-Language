@@ -15,7 +15,6 @@ LexItem getNextToken(istream& in, int& linenumber){
             case START:
                 if(c == '\n'){
                     linenumber++;
-                    //continue;
                 }
                 else if(c == ' '){
                      continue;
@@ -24,19 +23,15 @@ LexItem getNextToken(istream& in, int& linenumber){
                 
                 if(c == '\''){
                     lexstate = INSTRING;
-                    //continue;
                 }
                 else if(c == '#'){
                     lexstate = INCOMMENT;
-                    //continue;
                 }
                 else if(isdigit(c)){
                     lexstate = ININT;
-                    //continue;
                 }
                 else if(isalpha(c) || c == '_' || c == '$' || c == '@'){
                     lexstate = INID;
-                    //continue;
                 }
                 else{
                     switch(c){
@@ -124,6 +119,7 @@ LexItem getNextToken(istream& in, int& linenumber){
                     }
                 }
             break;
+
             case INID: //identifiers
                 if((isalnum(c)) ||(c=='_') ){
                     lexeme += c;
@@ -133,7 +129,8 @@ LexItem getNextToken(istream& in, int& linenumber){
                     return id_or_kw(lexeme, linenumber);
                 }
             break;
-            case INSTRING: //string
+
+            case INSTRING: //strings
                 if(c == '\''){
                     lexeme += c;
                                         lexeme = lexeme.substr(1, lexeme.length()-2);
@@ -147,6 +144,7 @@ LexItem getNextToken(istream& in, int& linenumber){
                     lexeme +=c;
                 }
             break;
+
             case ININT: //int
                 if(isdigit(c)){
                     lexeme += c;
@@ -163,6 +161,7 @@ LexItem getNextToken(istream& in, int& linenumber){
                     break;
                 }
             break;
+
             case INREAL: //real
                 peek = in.peek();
                 if(isdigit(c)){
@@ -183,6 +182,7 @@ LexItem getNextToken(istream& in, int& linenumber){
                     return LexItem(ERR, lexeme, linenumber); 
                 }
             break;
+
             case INCOMMENT: //comment
                 if(c == '\n'){
                     linenumber++;
@@ -210,7 +210,7 @@ LexItem id_or_kw(const string& lexeme, int linenum){
         else if(lexeme[0] == '$'){ //NIDENT condition
             return LexItem(NIDENT, lexeme, linenum);
         }
-        else if(lexeme[0] == '_' || isalpha(lexeme[0])){ //IDENT
+        else if(lexeme[0] == '_' || isalpha(lexeme[0])){ //IDENT condition
             for(char c: lexeme.substr(1)){
                 if( c!= '_' && !isalnum(c)){
                     return LexItem(ERR, lexeme, linenum);
@@ -223,6 +223,7 @@ LexItem id_or_kw(const string& lexeme, int linenum){
         }
     }
 }
+
 string tokToString(Token token){
     switch(token){
       case IDENT:
