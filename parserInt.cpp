@@ -371,7 +371,6 @@ bool Expr(istream& in, int& line, Value & retVal) {
 	Value val1;
 	Value val2;
 	bool t1 = RelExpr(in, line, val1);
-	//cout << "in Expr" << val1<< endl;
 	if( !t1 ) {
 		return false;
 	}
@@ -382,8 +381,7 @@ bool Expr(istream& in, int& line, Value & retVal) {
 		cout << "(" << tok.GetLexeme() << ")" << endl;
 		return false;
 	}
-	if ( tok == NEQ || tok == SEQ ) 
-	{
+	if ( tok == NEQ || tok == SEQ ) {
 		t1 = RelExpr(in, line, val2);
 		if( !t1 ) 
 		{
@@ -402,7 +400,6 @@ bool Expr(istream& in, int& line, Value & retVal) {
 			cout << "(" << tok.GetLexeme() << ")" << endl;
 			return false;
 		}
-		//return true;
 	}
 	Parser::PushBackToken(tok);
 	return true;
@@ -413,19 +410,17 @@ bool RelExpr(istream& in, int& line, Value & retVal) {
 	LexItem tok;
 	Value val1, val2;
 	bool t1 = AddExpr(in, line, val1);
-		//cout << "in relExpr" << val1<< endl;	
 	if( !t1 ) {
 		return false;
 	}
 	retVal = val1;
 	tok = Parser::GetNextToken(in, line);
-	if(tok.GetToken() == ERR){
+	if(tok.GetToken() == ERR) {
 		ParseError(line, "Unrecognized Input Pattern");
 		cout << "(" << tok.GetLexeme() << ")" << endl;
 		return false;
 	}
-	if ( tok == NGTHAN || tok == NLTHAN || tok == SGTHAN || tok == SLTHAN ) 
-	{
+	if ( tok == NGTHAN || tok == NLTHAN || tok == SGTHAN || tok == SLTHAN ) {
 		t1 = AddExpr(in, line, val2);
 		if( !t1 ) 
 		{
@@ -469,7 +464,7 @@ bool RelExpr(istream& in, int& line, Value & retVal) {
 	}
 	Parser::PushBackToken(tok);
 	return true;
-}//End of RelExpr
+}
 
 
 //AddExpr :: MultExpr { ( + | - | .) MultExpr }
@@ -488,8 +483,7 @@ bool AddExpr(istream& in, int& line, Value & retVal) {
 		cout << "(" << tok.GetLexeme() << ")" << endl;
 		return false;
 	}
-	while ( tok == PLUS || tok == MINUS || tok == CAT) 
-	{
+	while ( tok == PLUS || tok == MINUS || tok == CAT) {
 		t1 = MultExpr(in, line, val2);
 		if( !t1 ) 
 		{
@@ -522,7 +516,9 @@ bool AddExpr(istream& in, int& line, Value & retVal) {
 	}
 	Parser::PushBackToken(tok);
 	return true;
-}//End of AddExpr
+}
+
+
 //MultExpr ::= ExponExpr { ( * | / | **) ExponExpr }
 bool MultExpr(istream& in, int& line, Value & retVal) {
 	Value val1, val2;
@@ -539,10 +535,8 @@ bool MultExpr(istream& in, int& line, Value & retVal) {
 			cout << "(" << tok.GetLexeme() << ")" << endl;
 			return false;
 	}
-	while ( tok == MULT || tok == DIV  || tok == SREPEAT)
-	{
+	while ( tok == MULT || tok == DIV  || tok == SREPEAT){
 		t1 = ExponExpr(in, line, val2);
-		
 		if( !t1 ) {
 			ParseError(line, "Missing operand after operator");
 			return false;
@@ -607,7 +601,7 @@ bool ExponExpr(istream& in, int& line, Value & retVal){
 			cout << "(" << tok.GetLexeme() << ")" << endl;
 			return false;
 	}
-	while (tok == EXPONENT){
+	while (tok == EXPONENT) {
 		status = ExponExpr(in, line, val2);
 		if( !status ) {
 			ParseError(line, "Missing operand after operator");
@@ -650,10 +644,8 @@ bool UnaryExpr(istream& in, int& line, Value & retVal){
 bool PrimaryExpr(istream& in, int& line, int sign, Value & retVal) {
 	
 	LexItem tok = Parser::GetNextToken(in, line);
-	//cout << sign << endl;
 	string lexeme = tok.GetLexeme();
 	if( tok == NIDENT || tok == SIDENT) {
-		
 		string lexeme = tok.GetLexeme();
 		if (!(defVar.find(lexeme)->second))
 		{
@@ -678,7 +670,6 @@ bool PrimaryExpr(istream& in, int& line, int sign, Value & retVal) {
 		return true;
 	}
 	else if( tok == ICONST ) {
-		//cout << "In primary " << tok << endl;
 		retVal.SetType(VREAL);
 		if(sign == -1){
 			retVal.SetReal((-1)*(stod(tok.GetLexeme())));
@@ -687,9 +678,6 @@ bool PrimaryExpr(istream& in, int& line, int sign, Value & retVal) {
 		else{
 			retVal.SetReal(stod(tok.GetLexeme()));
 		}
-		//cout << retVal.GetType() << endl;
-		//int i = retVal.GetInt();
-		//cout<< i << endl;
 		return true;
 	}
 	else if( tok == SCONST ) {
@@ -745,7 +733,6 @@ bool PrimaryExpr(istream& in, int& line, int sign, Value & retVal) {
 		cout << "(" << tok.GetLexeme() << ")" << endl;
 		return false;
 	}
-
 	return false;
 }
 
